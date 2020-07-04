@@ -1,0 +1,9 @@
+
+Cher ${CUSTOMER_NAME} ${CUSTOMER_SURNAME},
+
+Je vous contacte dans le cadre de votre recherche de consultant à placer sur le poste ${CUSTOMER_JOB}.
+J'ai trouvé un candidat qui correspond à vos critères.
+
+Sincèrement,
+
+Lucas Apap
