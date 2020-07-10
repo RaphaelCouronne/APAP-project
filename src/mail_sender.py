@@ -21,7 +21,8 @@ class MailSender():
         # setup the parameters of the message
         msg['From'] = self.my_mail
         msg['To'] = dest_mail
-        msg['Subject'] = "Push de candidat - {}".format(msg_args["CUSTOMER_JOB"])
+        msg['Subject'] = "Push de candidat - {}".format(
+            msg_args["CUSTOMER_JOB"])
 
         # add in the message body
         msg.attach(MIMEText(message, 'plain'))

@@ -8,9 +8,11 @@ from argparse import ArgumentParser
 import sys
 import os
 dir_path = os.path.dirname(os.path.realpath(__file__))
-sys.path.append(os.path.join( dir_path, "../../"))
+sys.path.append(os.path.join(dir_path, "../../"))
 
-#%% Mail
+# %% Mail
+
+
 def open_smtp():
     # Open mail connection
     my_adress = "lucas.apap@incroyablelogiciel.com"
@@ -23,28 +25,31 @@ def open_smtp():
 
     return my_adress, smtpObj
 
+
 def read_template(filename):
     with open(filename, 'r', encoding='utf-8') as template_file:
         template_file_content = template_file.read()
     return Template(template_file_content)
 
-#%% Database Query / Operations
+# %% Database Query / Operations
+
 
 def add_client(customer_database):
     # Modify client
     return 0
 
+
 def main(args):
 
     # Get customers I want
-    #customers = customer_query(software_skills=["Python"],
+    # customers = customer_query(software_skills=["Python"],
     #                           job="Ingénieur d'étude",
     #                           region="Ile-de-France")
 
     dict_args = vars(args)
     customers = customer_query(**dict_args)
 
-    if len(customers)==0:
+    if len(customers) == 0:
         raise ValueError("No customer found")
 
     # Access Template Push
@@ -67,11 +72,14 @@ def main(args):
 
     return 0
 
+
 if __name__ == "__main__":
     parser = ArgumentParser()
 
-    parser.add_argument("--job", dest='job', type=str, default="Ingénieur d'étude", help='Which job ?')
-    parser.add_argument("--region", dest='region', type=str, default="Ile-de-France", help='Which region ?')
+    parser.add_argument("--job", dest='job', type=str,
+                        default="Ingénieur d'étude", help='Which job ?')
+    parser.add_argument("--region", dest='region', type=str,
+                        default="Ile-de-France", help='Which region ?')
 
     # Parse
     args = parser.parse_args()
@@ -80,4 +88,3 @@ if __name__ == "__main__":
 
     # train
     main(args)
-
