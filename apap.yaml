@@ -8,3 +8,6 @@ dependencies:
   - flask
   - pandas
   - unidecode
+  - pip:
+    - dash
+    - Flask-Caching
