@@ -54,14 +54,17 @@ layout = html.Div(
             dcc.Dropdown(id='secteur-dropdown',
                          placeholder="Selectionner un secteur d'activité",
                          multi=True,
+                         value=[],
                          style={'textAlign': 'center', 'width': '40%', 'margin': 'auto'}),
             dcc.Dropdown(id='competences-dropdown',
                          placeholder="Selectionner une compétence métier",
                          multi=True,
+                         value=[],
                          style={'textAlign': 'center', 'width': '40%', 'margin': 'auto'}),
             dcc.Dropdown(id='logiciel-dropdown',
                          placeholder="Selectionner un logiciel",
                          multi=True,
+                         value=[],
                          style={'textAlign': 'center', 'width': '40%', 'margin': 'auto'}),
             # dcc.Dropdown(id='autres-dropdown',
             #              placeholder="Selectionner autres",
@@ -69,13 +72,13 @@ layout = html.Div(
             #              style={'textAlign': 'center', 'width': '40%', 'margin': 'auto'}),
         ]),
 
-        html.Div(id="main-table", style={"width": "50%", "margin": "auto"}),
         html.Br(),
         html.Br(),
         html.P(id='debug'),
         html.Br(),
         html.Br(),
 
+        html.Div(id="main-table", style={"width": "100%", "margin": "auto"}),
 
 
         dcc.Interval(id='business-contacts-interval',
@@ -154,4 +157,19 @@ def debug_1(secteurs, competences, logiciels):
 )
 def update_table(secteurs, competences, logiciels):  # , autres):
     """Show table."""
-    return "Vous avez selectionné secteurs %s" % (str(secteurs))
+    df_full = pd.read_csv('data/processed/candidate_database.csv', index_col=0)
+    df = df_full.copy()
+
+    if secteurs == [] and competences == [] and logiciels == []:
+        return generate_table(df_full, page_size=30)
+
+    if secteurs != []:
+        df = df[df.branch.isin(secteurs)]
+
+    if competences != []:
+        df = df[df.job.isin(competences)]
+
+    if logiciels != []:
+        for logiciel in logiciels:
+            df = df[df[logiciel] == 1]
+    return generate_table(df)
