@@ -70,6 +70,12 @@ layout = html.Div(
         ]),
 
         html.Div(id="main-table", style={"width": "50%", "margin": "auto"}),
+        html.Br(),
+        html.Br(),
+        html.P(id='debug'),
+        html.Br(),
+        html.Br(),
+
 
 
         dcc.Interval(id='business-contacts-interval',
@@ -124,6 +130,18 @@ def update_dropdown(n_intervals):
         )
     print(secteurs_options)
     return secteurs_options, jobs_options, logiciels_options  # , autres_options
+
+
+@app.callback(
+    Output('debug', 'children'),
+    [Input('secteur-dropdown', 'value'),
+     Input('competences-dropdown', 'value'),
+     Input('logiciel-dropdown', 'value'),
+     # Input('autres-dropdown', 'value')]
+     ]
+)
+def debug_1(secteurs, competences, logiciels):
+    return str(secteurs) + str(competences) + str(logiciels)
 
 
 @app.callback(
