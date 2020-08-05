@@ -7,8 +7,15 @@ import dash_html_components as html
 from dash_table import DataTable
 import pandas as pd
 
-from main_app import app, cache
+from server import app, cache
 from assets.config import DEFAULT_COLORS as colors
+
+import os
+import pathlib
+path_dir = pathlib.Path(__file__).parent.absolute()
+path_proj = os.path.join(path_dir, "../..")
+
+path_candidates = os.path.join(path_proj, 'data/processed/candidate_database.csv')
 
 
 def generate_table(df, page_size=10):
@@ -99,7 +106,7 @@ layout = html.Div(
 )
 def update_dropdown(n_intervals):
     """Update dropdown based on values."""
-    df = pd.read_csv('data/processed/candidate_database.csv', index_col=0)
+    df = pd.read_csv(path_candidates, index_col=0)
 
     secteurs = df.branch.value_counts().index.tolist()
     jobs = df.job.value_counts().index.tolist()
@@ -157,7 +164,7 @@ def debug_1(secteurs, competences, logiciels):
 )
 def update_table(secteurs, competences, logiciels):  # , autres):
     """Show table."""
-    df_full = pd.read_csv('data/processed/candidate_database.csv', index_col=0)
+    df_full = pd.read_csv(path_candidates, index_col=0)
     df = df_full.copy()
 
     if secteurs == [] and competences == [] and logiciels == []:
