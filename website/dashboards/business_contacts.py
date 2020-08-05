@@ -85,7 +85,7 @@ layout = html.Div(
         html.Br(),
         html.Br(),
 
-        html.Div(id="main-table", style={"width": "100%", "margin": "auto"}),
+        html.Div(id="main-table", style={"width": "100%", "margin": "auto", "overflow-y": "scroll"}),
 
 
         dcc.Interval(id='business-contacts-interval',

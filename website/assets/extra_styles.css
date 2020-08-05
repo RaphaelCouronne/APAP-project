@@ -32,3 +32,7 @@ div {
 h2 {
   text-align: center;
 }
+
+.main-table {
+  overflow-y: scroll;
+}
